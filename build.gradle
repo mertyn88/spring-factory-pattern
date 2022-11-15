@@ -1,0 +1,36 @@
+buildscript {
+    ext {
+        lombokVersion = "1.18.24"
+        springBootVersion = "2.7.2"
+        slf4jVersion = "1.7.36"
+        junitVersion = "5.9.0"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}"
+}
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
+    implementation "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    //implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    //implementation "org.slf4j:slf4j-simple:${slf4jVersion}"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+    }
+}
